@@ -1,0 +1,315 @@
+##Developer : Sean Radatz
+##FortuneMan5000
+##9/30/2015
+
+import random
+import pickle
+from operator import itemgetter
+loot = []
+
+def intro(): # Intro
+    handle = ''
+    while handle == '':
+        text = open("intro.txt", "r")
+        stuff = text.read()
+        print()
+        print(stuff)
+        break
+
+def brain(): #The brain input
+    handle = ''
+    while handle == '':
+        text = open("brain.txt", "r")
+        stuff = text.read()
+        print(stuff)
+        handle = input()
+        return handle
+
+def boat(choice): #The brain loot
+    text = open("brainwin.txt", "r")
+    text1 = open("brainfail.txt", "r")
+
+    this = ''
+    while this == '':
+        if choice == '4' or choice == '2':
+            stuff = text.read()
+            loot.append('Boat Full of Money')
+            print(stuff)
+            break
+
+        else:
+            stuff2 = text1.read()
+            print(stuff2)
+            break
+
+def guess(): #Animal Enigma Input
+    handle = ''
+    while handle == '':
+        text = open("cat.txt", "r")
+        stuff = text.read()
+        print()
+        print(stuff)
+        handle = input()
+        return handle
+
+def cat(choice):  #Animal Enigma loot
+    text = open("catwin.txt", "r")
+    text1 = open("catfail.txt", "r")
+
+    this = ''
+    while this == '':
+        if choice == 'cat' or choice == 'Cat':
+            stuff = text.read()
+            loot.append('House Cat') #Adds to Loot
+            print(stuff)
+            break
+
+        else:
+            stuff2 = text1.read()
+            print(stuff2)
+            this = 'dead'
+
+
+def prize(): #gemania input
+    handle = ''
+    while handle == '':
+        text = open("gemania.txt", "r")
+        stuff = text.read()
+        print(stuff)
+        handle = input()
+        return handle
+
+def gem(choose): #gemania loot
+    text = open("ruby.txt", "r")
+    text1 = open("sapphire.txt", "r")
+    text2 = open("battery.txt", "r")
+
+    gems = ''
+    while gems == '':
+        if choose == '1':
+            ruby = text.read()
+            print(ruby)
+            loot.append('Ruby') #adds to loot
+            break
+
+        if choose == '2':
+            sapphire = text1.read()
+            print(sapphire)
+            loot.append('Sapphire') #adds to loot
+            break
+            
+        if choose == '3':
+            battery = text2.read()
+            print(battery)
+            loot.append('9v Battery') #adds to loot
+            break
+
+        else:
+            gems = 'dead'
+
+def bonus(): # Every item in Loot becomes points
+    print('You have won all of these bonuses!!!')
+    print(loot)
+    money = 0
+    for entry in loot: #converts and adds total
+        if 'Ruby' in loot:
+            money = money + 90000
+            loot.remove('Ruby')
+
+        if 'Sapphire' in loot:
+            money = money + 175000
+            loot.remove('Sapphire')
+
+        if '9v Battery' in loot:
+            money = money + 15
+            loot.remove('9v Battery')
+
+        if 'House Cat' in loot:
+            money = money + 135000
+            loot.remove('House Cat')
+
+        if 'Boat Full of Money' in loot:
+            money = money + 250000
+            loot.remove('Boat Full of Money')
+    return money
+
+def pad(): #player name extraction
+    handle = ''
+    while handle == '':
+        print('Where the object of the game is to win as much money as you can!!!')
+        print()
+        print('What is your name?')
+        handle = input()
+        return handle
+
+def jim(): #Jim's number
+    number = ''
+    text = open("jim.txt", "r")
+    win = open("jimwin.txt", "r")
+    fail = open('jimfail.txt', 'r')
+    while number == '':
+        stuff = text.read()
+        print(stuff)
+        monkey = random.randint(1,4) #Jim's number
+        monkey = str(monkey)
+        guess = input()
+
+        if guess == monkey:
+            print()
+            print("Jim guessed " + monkey)
+            print()
+            stuff2 = win.read()
+            print(stuff2)
+            number = 500000
+            return number
+
+        else:
+            print()
+            print("Jim guessed " + monkey)
+            print()
+            stuff3 = fail.read()
+            print(stuff3)
+            number = 0
+            return number
+
+
+def letter(): #Letter jackpot
+    number = ''
+    text = open("Wordsearch.txt", "r")
+    win = open("Wordwin.txt", "r")
+    while number == '':
+        stuff = text.read()
+        print(stuff)
+
+        word = input()
+
+        position = 0
+        letter  = 0
+        inventory = ('x', 'X', 'T', 't', 'c', 'C', 'z', 'Z', 'G', 'g')
+
+        for search in word:
+            if position == 5:
+                return letter
+            if search == 'x' or search == 'X':
+                print('I found an X $$$105000')
+                letter = letter + 105000
+                position = position + 1
+
+            if search == 'T' or search == 't':
+                print('I found a T $$$85000.')
+                letter = letter + 85000
+                position = position + 1
+
+            if search == 'C' or search == 'c':
+                print('I found an C $$$75000.')
+                letter = letter + 75000
+                position = position + 1
+
+            if search == 'Z' or search == 'z':
+                print('I found a secret letter Z $$$20000.')
+                letter = letter + 200000
+                position = position + 1
+
+            if search == 'G' or search == 'g':
+                print('I found a secret letter G $$$300000.')
+                letter = letter + 300000
+                position = position + 1
+        
+            if search not in inventory:
+                print('you lost $25000')
+                letter = letter - 25000
+                position = position + 1
+
+        stuff2 = win.read()
+        print()
+        input()
+        print(stuff2)
+        letter = str(letter)
+        print('$' + letter + '!!!!!!')
+        print()
+        print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+        print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+        print('$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$$')
+        number = letter + number
+        return number
+    # the best 5 letter word they can think of with with letter values
+
+def flair(): # Looks nice stuff
+    text = open("flair.txt", "r")
+    stuff = text.read()
+    input()
+    print(stuff)
+    
+def highscores(entry):
+
+    with open('scores.dat', 'rb') as file: # Highscores
+        names = pickle.load(file)        #pickle
+    names += entry           
+    names = sorted(names, key=itemgetter(1), reverse=True)[:] #organize highscores
+    print('These are all the previous scores!!!!!')
+    print()
+    for words in names:
+        name, number = words
+        print(number, '\t', name)
+
+    with open('scores.dat', 'wb') as file: #unpickle
+        pickle.dump(names, file)    
+
+def main():
+    game = 'yes'
+    while game == 'yes' or game == 'y':
+
+        score = 0
+
+        intro()
+        flair()
+        player = pad() #player name extraction
+
+        feline = guess() #Animal Enigma Input
+        cat(feline) #Animal Enigma loot 
+        input()
+
+        pick = prize() #gemania input
+        gem(pick)  #gemania loot
+        input()
+
+        rupee = jim() #Jim's number
+        input()
+        bean = letter() #Letter jackpot
+        input()
+
+        cloth = brain() #The brain input
+        boat(cloth) #the brain loot
+        input()
+        
+        lootcache = bonus() # Every item in Loot becomes points
+
+        rupee = int(rupee)
+        bean = int(bean)
+        score = int(score)
+        score = score + rupee + bean + lootcache # Score calc
+        lootcache = str(lootcache)
+        print('For a total of $' + lootcache) 
+            
+
+        flair()
+        score = str(score)
+        print()
+        print('Your grand total winnings are $' + score)
+        print()
+        flair()
+
+        score = int(score)
+        info = [(player, score)]
+        highscores(info) #highscore input
+
+
+        print('Would you like to play again? Y\\N?')
+        game = input()
+        
+
+    
+main()            
+        
+        
+
